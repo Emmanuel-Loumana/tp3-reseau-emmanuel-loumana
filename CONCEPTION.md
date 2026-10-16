@@ -1,22 +1,23 @@
-# Conception — Dog Guesser
+# Conception de Dog Guesser
 
-## Intentions données à l'IA
+## Ce que je voulais réaliser
 
-Le cahier des charges personnel était de faire uniquement la partie I, avec un rendu visuel soigné, un lancement facile et du code compréhensible par un étudiant. L'IA a été sollicitée pour lire le sujet, proposer une organisation, écrire le code et le vérifier. Le code n'a donc pas été rédigé intégralement à la main par l'étudiant.
+J’ai limité le projet à la partie I du TP. Je voulais un jeu agréable à regarder, facile à lancer et dont le code reste adapté à mon niveau. J’ai demandé de soigner l’interface sans multiplier les fonctionnalités ni compliquer l’installation.
 
-## Choix retenus
+J’ai utilisé l’IA pour proposer une organisation des fichiers, générer le code et effectuer des vérifications. De mon côté, j’ai précisé les attentes, essayé le jeu et validé le résultat. Après cet essai, j’ai préféré garder cette version plutôt que d’ajouter des fonctions qui n’étaient pas nécessaires au TP.
 
-- **Python uniquement** : Tkinter pour la fenêtre, plutôt qu'un site HTML/JavaScript. Le Canvas permet de dessiner une interface personnalisée sans ajouter de framework graphique.
-- **Une présentation sobre** : fond crème, vert foncé et orange, grande photo, quatre boutons et une correction immédiate. L'image est conservée entière pour ne pas couper les détails utiles.
-- **Un jeu court** : dix manches de vingt secondes. La précision rapporte la base des points ; la vitesse et les séries ajoutent un bonus.
-- **Des outils limités** : `requests` et `websockets`, présents dans le cours réseau. Pillow a été ajouté pour lire et redimensionner les photos JPEG dans Tkinter. Tkinter appartient à la bibliothèque standard de Python ; ces deux choix graphiques restent à vérifier avec les outils autorisés par l'enseignant.
-- **Deux fichiers JSON distincts** : les parties sur le PC du joueur, les records sur le serveur. Pas de base de données pour ce petit projet.
-- **Des tâches en arrière-plan** : les photos et les messages réseau ne doivent pas figer les boutons ou le chrono. Une file transmet les résultats à la fenêtre.
+## Les choix du projet
 
-## Validation et rendu
+L’application utilise Tkinter pour rester en Python. L’interface laisse une grande place à la photo, avec quatre réponses et une correction immédiate. Pillow sert à afficher les images sans les déformer ni couper le chien. Les appels à Dog CEO utilisent requests et les échanges avec le serveur de records passent par websockets.
 
-Un essai du jeu a été validé. Le projet est fourni dans un dépôt GitHub public avec les instructions de lancement. Avant la présentation, il reste à relire les fonctions de score, les appels à l’API et les messages WebSocket pour pouvoir expliquer leur fonctionnement.
+Une partie comporte dix manches de vingt secondes. Une bonne réponse rapporte des points, avec un bonus pour la rapidité et les bonnes réponses consécutives. Le chrono commence une fois la photo chargée.
 
-## Limites assumées
+Les parties sont enregistrées dans un fichier JSON sur le PC du joueur. Le serveur conserve les records dans un autre fichier et les transmet aux joueurs connectés. Cela suffit pour ce projet, sans installer de base de données. Les téléchargements et la connexion au serveur fonctionnent en arrière-plan pour que la fenêtre reste utilisable.
 
-Le jeu dépend d'Internet et de la qualité des photos de Dog CEO. Le serveur est destiné à un réseau privé ; un client modifié pourrait envoyer un score inventé. Ajouter des comptes ou une protection contre la triche compliquerait inutilement ce TP.
+## Essai et lancement
+
+J’ai testé le jeu et validé son fonctionnement général. J’ai aussi demandé un README avec des instructions courtes pour que le projet puisse être lancé après téléchargement. Le fichier launch.py démarre le serveur local et la fenêtre avec une seule commande.
+
+## Limites
+
+Il faut une connexion Internet pour récupérer les photos. Certaines races gardent leur nom anglais. Le serveur est prévu pour un usage sur un réseau privé : il n’y a pas de compte utilisateur et les scores envoyés par le jeu ne sont pas protégés contre la triche.
