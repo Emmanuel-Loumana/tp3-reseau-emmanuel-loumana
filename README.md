@@ -1,49 +1,81 @@
 # Dog Guesser
 
-Une photo de chien, quatre races et 20 secondes pour répondre. Projet Python — TP3, partie I uniquement.
+Projet Python réalisé pour la partie I du TP3. Le principe : reconnaître la race d’un chien parmi quatre propositions à partir d’une photo de [Dog CEO](https://dog.ceo/dog-api/).
 
-## Installer et jouer
+## Installation et lancement
 
-Python **3.10 ou plus récent**, avec Tkinter, et une connexion Internet sont nécessaires.
-Depuis le dossier décompressé, ouvrir un terminal :
+Il faut Python 3.10 ou plus récent et une connexion Internet.
+
+1. Télécharger le projet avec **Code → Download ZIP**, puis le décompresser.
+2. Ouvrir un terminal dans le dossier contenant `launch.py`.
+3. Installer les dépendances, puis lancer le jeu :
 
 ```bash
 python -m pip install -r requirements.txt
 python launch.py
 ```
 
-Sous Windows, `py` peut remplacer `python`. Après installation, un double-clic sur `lancer.bat` lance aussi le jeu. Tkinter est fourni avec l'installation classique de Python sous Windows (option Tcl/Tk). Sous Ubuntu/Debian, installer `python3-tk` si nécessaire.
+Sous Windows, remplacer `python` par `py` si nécessaire. Une fois les dépendances installées, un double-clic sur `lancer.bat` permet aussi de jouer.
 
-Entrer un pseudo et cliquer sur **C’est parti**. Répondre en cliquant ou avec les touches **1 à 4**. Entrée permet de passer à la photo suivante après correction.
+VS Code et PyCharm conviennent : ouvrir le dossier du projet et saisir les mêmes commandes dans le terminal de l’éditeur.
 
-## Règles
+Tkinter est normalement fourni avec Python sous Windows, avec l’option Tcl/Tk de l’installateur. Sous Ubuntu ou Debian, installer `python3-tk` s’il manque.
 
-- 10 photos, 20 secondes chacune. Le chrono démarre après le chargement.
-- Bonne réponse : 100 points + 10 points par seconde restante (arrondis à l'entier inférieur).
-- Série : +25 points par bonne réponse consécutive après la première, jusqu'à +100.
-- Erreur ou temps écoulé : 0 point, la série retombe à zéro.
-- Le résultat est sauvegardé à la fin des dix manches dans `data/scores.json`.
-- Le serveur garde le meilleur score de chaque pseudo et les dix premiers dans `data/records.json`. Le podium se met à jour sans relancer le jeu.
+## Jouer
 
-Une photo qui ne charge pas peut être retentée sans pénalité. Si le serveur est indisponible, le jeu continue : le résultat reste local et attend la reconnexion tant que la fenêtre reste ouverte.
+Saisir un pseudo, puis cliquer sur **C’est parti**. Chaque partie compte dix photos, avec vingt secondes pour répondre à chacune. Le chrono démarre après le chargement de l’image.
 
-## Essayer avec deux joueurs
+Cliquer sur une réponse ou utiliser les touches **1 à 4**. Après la correction, cliquer sur le bouton suivant ou appuyer sur Entrée.
 
-Sur un même PC : garder un serveur ouvert avec `python server.py`, puis ouvrir deux terminaux et lancer `python main.py` dans chacun. Les deux fenêtres reçoivent les mêmes nouveaux records. Arrêter avec Ctrl+C dans le terminal du serveur.
+Une bonne réponse rapporte 100 points, auxquels s’ajoutent :
+- un bonus de vitesse : dix points par seconde restante, arrondi à l’entier inférieur ;
+- un bonus de série : 25 points par bonne réponse consécutive après la première, jusqu’à 100 points.
 
-Sur deux PC du même réseau : sur le premier, lancer `python server.py --host 0.0.0.0`. Sur chaque PC, lancer `python main.py --server ws://ADRESSE_IP_DU_SERVEUR:8765` en remplaçant l'adresse. Autoriser Python sur le réseau privé si Windows le demande. Chaque PC doit avoir accès à Internet pour les photos.
+Une erreur ou un temps écoulé rapporte zéro et remet la série à zéro. Une photo qui ne charge pas peut être retentée sans pénalité.
 
-## Fichiers
+## Scores et records
 
-- `main.py` : interface Tkinter et déroulement de la partie.
-- `game.py` : API Dog CEO, règles de score et sauvegarde locale.
-- `server.py` : serveur WebSocket et fichier des records.
-- `network.py` : connexion aux records en arrière-plan.
-- `launch.py` : démarrage local en une commande.
-- `CONCEPTION.md` : choix du projet et utilisation de l'IA.
+À la fin des dix manches, cliquer sur **Voir mon résultat** pour enregistrer la partie dans `data/scores.json`. Le serveur conserve les dix meilleurs records, avec un seul score par pseudo, dans `data/records.json`. Le podium est actualisé dans les fenêtres connectées.
 
-Les sauvegardes se créent automatiquement. Aucun compte, clé d'API ni fichier `.env` n'est nécessaire. Aucun environnement virtuel n'est inclus.
+Ces fichiers sont créés automatiquement. Si le serveur est indisponible, le jeu reste utilisable et le résultat est sauvegardé sur le PC. L’envoi au serveur attend la reconnexion tant que la fenêtre reste ouverte.
 
-Pour lancer les vérifications : `python -m unittest discover -s tests -v`.
+## Tester les records avec deux fenêtres
 
-Photos et liste des races : [Dog CEO](https://dog.ceo/dog-api/). Certaines races peu courantes conservent leur nom anglais. Le serveur de records est prévu pour un TP sur un réseau privé : il ne dispose pas d'authentification et les scores sont calculés par le client.
+Démarrer le serveur dans un terminal :
+
+```bash
+python server.py
+```
+
+Puis lancer `python main.py` dans deux autres terminaux. Les nouveaux records apparaissent dans les deux fenêtres. Pour arrêter le serveur, utiliser Ctrl+C.
+
+Sur deux PC du même réseau, démarrer le serveur avec :
+
+```bash
+python server.py --host 0.0.0.0
+```
+
+Sur chaque PC, lancer le jeu en remplaçant l’adresse ci-dessous par l’adresse IP du PC serveur :
+
+```bash
+python main.py --server ws://ADRESSE_IP_DU_SERVEUR:8765
+```
+
+Autoriser Python sur le réseau privé si le pare-feu le demande. Les deux PC doivent avoir accès à Internet pour les photos.
+
+## Organisation
+
+- `main.py` : interface et déroulement d’une partie.
+- `game.py` : appels à Dog CEO, calcul des points et sauvegardes locales.
+- `server.py` : serveur des records.
+- `network.py` : connexion du jeu au serveur.
+- `launch.py` : lancement du serveur local et du jeu.
+- `CONCEPTION.md` : choix du projet et utilisation de l’IA.
+
+Pour exécuter les tests :
+
+```bash
+python -m unittest discover -s tests -v
+```
+
+Le serveur est prévu pour un réseau privé et ne dispose pas d’authentification. Certaines races conservent leur nom anglais.
