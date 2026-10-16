@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f3f0e7">
+  <title>Atelier commun · Tableau interactif</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/style.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <a class="brand" href="/" aria-label="Atelier commun, accueil"><span class="brand-mark" aria-hidden="true">a.</span><span>atelier commun<small>LE TABLEAU QUI NOUS RELIE</small></span></a>
+      <div class="connection" id="connection" role="status"><span class="status-dot"></span><span id="connection-text">Connexion en cours…</span></div>
+    </header>
+
+    <main>
+      <div class="intro"><div><p class="eyebrow">TP3 / PARTIE II</p><h1>Les idées prennent forme.</h1><p class="subtitle">Un même tableau. Plusieurs regards. Dessinez ensemble.</p></div><div class="canvas-size"><span class="size-icon" aria-hidden="true">↗</span><div>1000 × 640<small>UN ESPACE À PARTAGER</small></div></div></div>
+
+      <div class="workspace">
+        <section class="board-panel" aria-label="Tableau partagé">
+          <div class="board-toolbar"><span class="board-name"><span class="live-dot" aria-hidden="true"></span>Tableau commun</span><div class="board-actions"><button type="button" id="grid-button" aria-pressed="true">Repères</button><button type="button" id="export-button">Enregistrer l’image ↓</button></div></div>
+          <div class="board-wrap" id="board-wrap">
+            <canvas id="board" width="1000" height="640" aria-label="Dessin partagé : aucune forme pour le moment">Les dessins sont affichés ici en temps réel.</canvas>
+            <div class="empty" id="empty"><div class="empty-art" aria-hidden="true"><span></span><span></span><span></span></div><h2>Tout commence ici.</h2><p>Envoie une première forme depuis le client Python.<br>Elle apparaîtra sur tous les tableaux connectés.</p></div>
+          </div>
+          <div class="board-bottom"><span><span class="live-dot" aria-hidden="true"></span>Synchronisation en direct</span><span id="coordinates">Origine : en haut à gauche</span></div>
+        </section>
+
+        <aside class="sidebar" aria-label="Informations du tableau">
+          <section class="session"><p class="eyebrow">DANS L’ATELIER</p><div class="metric"><span class="metric-value" id="shape-count">0</span><span>forme<span id="shape-plural">s</span> sur le tableau</span></div><div class="viewers"><span class="viewers-mark" aria-hidden="true">◉</span><span id="viewers">Connexion en cours</span></div><div class="last-shape"><span>DERNIÈRE FORME</span><strong id="last-shape">À vous de jouer</strong></div></section>
+          <section class="palette-section"><p class="eyebrow">LES COULEURS DU TABLEAU</p><div class="palette" id="palette"><span class="muted">La palette se remplit au fil des dessins.</span></div></section>
+          <section class="guide"><span class="guide-number">01 → 05</span><h2>Cinq formes.<br>Des idées sans limite.</h2><p>Point, ligne, cercle, rectangle, carré : chaque forme envoyée rejoint la composition.</p><span class="guide-foot">À plusieurs, le dessin continue.</span></section>
+          <button class="clear-button" id="clear-button" type="button" disabled>Effacer le tableau <span aria-hidden="true">↺</span></button>
+        </aside>
+      </div>
+      <p class="notice" id="notice" role="status" aria-live="polite"></p>
+    </main>
+    <footer><span>ATELIER COMMUN · TABLEAU INTERACTIF</span><span>Des formes simples, une création collective.</span></footer>
+  </div>
+  <dialog id="clear-dialog"><form method="dialog"><p class="eyebrow">NOUVEAU DÉPART</p><h2>Effacer le tableau ?</h2><p>Le dessin sera effacé pour tous les utilisateurs connectés.</p><div class="dialog-actions"><button value="cancel">Garder le dessin</button><button value="clear" class="confirm">Effacer pour tous</button></div></form></dialog>
+</body>
+</html>

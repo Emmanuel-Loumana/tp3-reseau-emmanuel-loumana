@@ -1,8 +1,21 @@
-# Dog Guesser
+# TP3 — Projets réseau
+
+Ce dépôt contient les deux parties du TP. Chaque projet se lance séparément.
+
+| Projet | Emplacement | Instructions |
+| --- | --- | --- |
+| Partie I — Dog Guesser | Fichiers à la racine du dépôt | [Installation ci-dessous](#partie-i--dog-guesser) |
+| Partie II — Tableau interactif | Dossier `tableau-interactif/` | [README de la partie II](tableau-interactif/README.md) |
+
+**Pour la partie II, ouvrir le dossier `tableau-interactif` avant d’exécuter les commandes.** Ses fichiers `server.py`, `launch.py`, `requirements.txt` et `CONCEPTION.md` sont propres au tableau et ne remplacent pas ceux du jeu.
+
+---
+
+## Partie I — Dog Guesser
 
 Projet Python réalisé pour la partie I du TP3. Le principe : reconnaître la race d’un chien parmi quatre propositions à partir d’une photo de [Dog CEO](https://dog.ceo/dog-api/).
 
-## Installation et lancement
+### Installation et lancement
 
 Il faut Python 3.10 ou plus récent et une connexion Internet.
 
@@ -21,7 +34,7 @@ VS Code et PyCharm conviennent : ouvrir le dossier du projet et saisir les même
 
 Tkinter est normalement fourni avec Python sous Windows, avec l’option Tcl/Tk de l’installateur. Sous Ubuntu ou Debian, installer `python3-tk` s’il manque.
 
-## Jouer
+### Jouer
 
 Saisir un pseudo, puis cliquer sur **C’est parti**. Chaque partie compte dix photos, avec vingt secondes pour répondre à chacune. Le chrono démarre après le chargement de l’image.
 
@@ -33,13 +46,13 @@ Une bonne réponse rapporte 100 points, auxquels s’ajoutent :
 
 Une erreur ou un temps écoulé rapporte zéro et remet la série à zéro. Une photo qui ne charge pas peut être retentée sans pénalité.
 
-## Scores et records
+### Scores et records
 
 À la fin des dix manches, cliquer sur **Voir mon résultat** pour enregistrer la partie dans `data/scores.json`. Le serveur conserve les dix meilleurs records, avec un seul score par pseudo, dans `data/records.json`. Le podium est actualisé dans les fenêtres connectées.
 
 Ces fichiers sont créés automatiquement. Si le serveur est indisponible, le jeu reste utilisable et le résultat est sauvegardé sur le PC. L’envoi au serveur attend la reconnexion tant que la fenêtre reste ouverte.
 
-## Tester les records avec deux fenêtres
+### Tester les records avec deux fenêtres
 
 Démarrer le serveur dans un terminal :
 
@@ -63,7 +76,7 @@ python main.py --server ws://ADRESSE_IP_DU_SERVEUR:8765
 
 Autoriser Python sur le réseau privé si le pare-feu le demande. Les deux PC doivent avoir accès à Internet pour les photos.
 
-## Organisation
+### Organisation
 
 - `main.py` : interface et déroulement d’une partie.
 - `game.py` : appels à Dog CEO, calcul des points et sauvegardes locales.
